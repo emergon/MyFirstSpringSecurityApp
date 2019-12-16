@@ -25,7 +25,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
 
     @Autowired
     private Environment env;
-    
+    private Logger logger = Logger.getLogger(getClass().getName());
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -49,9 +49,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
         } catch (PropertyVetoException ex) {
             Logger.getLogger(MyWebMvcConfigurer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         datasource.setJdbcUrl(env.getProperty("jdbc.url"));
         datasource.setUser(env.getProperty("jdbc.user"));
         datasource.setPassword(env.getProperty("jdbc.password"));
+        logger.log(Level.INFO, ">>>>>>>>jdbc.user={0} logged in", env.getProperty("jdbc.user"));
         datasource.setInitialPoolSize(getIntProperty(env.getProperty("connection.pool.initialPoolSize")));
         datasource.setMinPoolSize(getIntProperty(env.getProperty("connection.pool.minPoolSize")));
         datasource.setMaxPoolSize(getIntProperty(env.getProperty("connection.pool.maxPoolSize")));
