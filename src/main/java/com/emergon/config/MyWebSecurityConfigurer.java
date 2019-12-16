@@ -1,6 +1,7 @@
 package com.emergon.config;
 
-import org.springframework.http.HttpMethod;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,13 +13,17 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 @EnableWebSecurity
 public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    private DataSource datasource;
+    
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        UserBuilder userBuilder = User.builder();
-        auth.inMemoryAuthentication()
-                .withUser(userBuilder.username("admin").password("{noop}1234").roles("ADMIN", "USER"))
-                .withUser(userBuilder.username("user").password("{noop}1234").roles("USER"))
-                .withUser(userBuilder.username("nick").password("{noop}1234").roles("GUEST"));
+        //UserBuilder userBuilder = User.builder();
+        auth.jdbcAuthentication().dataSource(datasource);
+//        auth.inMemoryAuthentication()
+//                .withUser(userBuilder.username("admin").password("{noop}1234").roles("ADMIN", "USER"))
+//                .withUser(userBuilder.username("user").password("{noop}1234").roles("USER"))
+//                .withUser(userBuilder.username("nick").password("{noop}1234").roles("GUEST"));
                 
     }
 

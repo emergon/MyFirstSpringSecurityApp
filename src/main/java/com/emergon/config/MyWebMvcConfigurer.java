@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -40,7 +41,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
         registry.addResourceHandler(paths).addResourceLocations(locations);
     }
     
-    
+    @Bean
     public DataSource datasource(){
         ComboPooledDataSource datasource = new ComboPooledDataSource();
         try {
