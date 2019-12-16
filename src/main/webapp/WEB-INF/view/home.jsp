@@ -15,13 +15,17 @@
             Role(s): <security:authentication property="principal.authorities"/>
         </p>
         <hr>
-        <a href="${pageContext.request.contextPath}/admin">Admin page</a>
+        <security:authorize access="hasRole('ADMIN')">
+            <a href="${pageContext.request.contextPath}/admin">Admin page</a>
+        </security:authorize>
         <br/>
-        <a href="${pageContext.request.contextPath}/user">User page</a>
+        <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+            <a href="${pageContext.request.contextPath}/user">User page</a>
+        </security:authorize>
         <hr>
         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
             <input type="submit" value="Logout">
-            
+
         </form:form>
     </body>
 </html>

@@ -1,5 +1,6 @@
 package com.emergon.config;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,7 +17,8 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         UserBuilder userBuilder = User.builder();
         auth.inMemoryAuthentication()
                 .withUser(userBuilder.username("admin").password("{noop}1234").roles("ADMIN", "USER"))
-                .withUser(userBuilder.username("user").password("{noop}1234").roles("USER"));
+                .withUser(userBuilder.username("user").password("{noop}1234").roles("USER"))
+                .withUser(userBuilder.username("nick").password("{noop}1234").roles("GUEST"));
                 
     }
 
@@ -31,7 +33,8 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
              .loginPage("/loginPage")//Show my form at the request mapping
              .loginProcessingUrl("/authenticate")//Login form will POST data to this URL for processing username and password
              .permitAll()//Allow everyone to see Login page. Don't have to be logged in.
-             .and().logout().permitAll();
+             .and().logout().permitAll()
+             .and().exceptionHandling().accessDeniedPage("/access-denied");
     }
     
 }
