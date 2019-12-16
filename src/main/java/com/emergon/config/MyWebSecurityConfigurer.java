@@ -15,7 +15,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         UserBuilder userBuilder = User.builder();
         auth.inMemoryAuthentication()
-                .withUser(userBuilder.username("admin").password("{noop}1234").roles("ADMIN"))
+                .withUser(userBuilder.username("admin").password("{noop}1234").roles("ADMIN", "USER"))
                 .withUser(userBuilder.username("user").password("{noop}1234").roles("USER"));
                 
     }
@@ -23,7 +23,9 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()//Restrict access based on HttServletRequest
-             .anyRequest().authenticated()//Any request to the app must be authenticated(logged in)
+             //.anyRequest().authenticated()//Any request to the app must be authenticated(logged in)
+             .antMatchers("/").hasAnyRole("USER","ADMIN")
+             .antMatchers("/admin/**").hasRole("ADMIN")
              .and()
              .formLogin()//We are customizing the form login process
              .loginPage("/loginPage")//Show my form at the request mapping

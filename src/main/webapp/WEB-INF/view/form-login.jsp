@@ -47,7 +47,7 @@
         </div>
     </c:if>
     
-    <form:form action="${pageContext.request.contextPath}/authenticate" method="post">
+    <form:form action="${pageContext.request.contextPath}/authenticate" method="POST">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
             <input name="username" type="text" class="form-control" placeholder="Username" required="required">
