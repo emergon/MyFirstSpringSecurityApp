@@ -41,6 +41,12 @@
             <i>Invalid username/password</i>
         </div>
     </c:if>
+    <c:if test="${param.logout !=null}">
+        <div class="alert alert-success">
+            <i>Logged out successfully</i>
+        </div>
+    </c:if>
+    
     <form:form action="${pageContext.request.contextPath}/authenticate" method="post">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
