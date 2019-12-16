@@ -1,4 +1,5 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,11 @@
 </head>
 <body>
 <div class="login-form">
-    
+    <c:if test="${param.error !=null}">
+        <div class="alert alert-danger">
+            <i>Invalid username/password</i>
+        </div>
+    </c:if>
     <form:form action="${pageContext.request.contextPath}/authenticate" method="post">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
