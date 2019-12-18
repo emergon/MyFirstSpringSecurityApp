@@ -31,7 +31,6 @@ public class CustomerController {
     
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String showForm(@ModelAttribute("customer") Customer c){
-        
         return "formCustomer";
     }
     

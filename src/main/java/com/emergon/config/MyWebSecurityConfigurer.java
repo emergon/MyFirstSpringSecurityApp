@@ -33,6 +33,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter{
              //.anyRequest().authenticated()//Any request to the app must be authenticated(logged in)
              .antMatchers("/").hasAnyRole("USER","ADMIN")
              .antMatchers("/admin/**").hasRole("ADMIN")
+             .antMatchers("/*/create/**","/*/update/**", "/*/delete/**").hasRole("ADMIN")
              .and()
              .formLogin()//We are customizing the form login process
              .loginPage("/loginPage")//Show my form at the request mapping

@@ -22,10 +22,11 @@
         <security:authorize access="hasAnyRole('USER', 'ADMIN')">
             <a href="${pageContext.request.contextPath}/user">User page</a>
         </security:authorize>
+            <br/>
+            <a href="${pageContext.request.contextPath}/customer/list">List Customer</a>
         <hr>
         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
             <input type="submit" value="Logout">
-
         </form:form>
     </body>
 </html>

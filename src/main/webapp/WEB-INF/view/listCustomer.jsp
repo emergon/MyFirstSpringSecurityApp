@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,8 +14,9 @@
     <body>
 
         <h1>List of Customers</h1>
+        <security:authorize access="hasRole('ADMIN')">
         <a href="${pageContext.request.contextPath}/customer/create">Create Customer</a>
-
+</security:authorize>
         <form:form action="${pageContext.request.contextPath}/customer/search" method="GET">
             Search Name: <input type="text" name="searchName" size="10">
             <input type="submit" value="Search">
@@ -32,17 +34,20 @@
                 <tr>
                     <td>${c.ccode}</td>
                     <td>${c.cname}</td>
+                    <security:authorize access="hasRole('ADMIN')">
                     <td>
                         <a href="${updateLink}">Update</a>
                     </td>
                     <td>
                         <a href="${deleteLink}"
                            onclick="if (!(confirm('Are you sure you want to delete customer with name: ${c.cname}?')))
-                                   return false"
+                                       return false"
                            >Delete</a>
                     </td>
+                    </security:authorize>
                 </tr>
             </c:forEach>
         </table>
+        <a href="${pageContext.request.contextPath}/">Home Page</a>
     </body>
 </html>
