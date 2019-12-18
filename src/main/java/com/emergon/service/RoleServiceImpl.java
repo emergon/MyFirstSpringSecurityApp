@@ -18,5 +18,10 @@ public class RoleServiceImpl implements RoleService{
     public List<Role> getRoles() {
         return rdao.findAll();
     }
+
+    @Override
+    public Role findById(Integer id) {
+        return rdao.findById(id);
+    }
     
 }

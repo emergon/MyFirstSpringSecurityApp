@@ -25,4 +25,9 @@ public class RoleDaoImpl implements RoleDao {
         return list;
     }
 
+    @Override
+    public Role findById(Integer id) {
+        return getSession().byId(Role.class).load(id);
+    }
+
 }

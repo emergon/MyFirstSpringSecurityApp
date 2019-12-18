@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -22,6 +23,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = "com.emergon")
 public class MyWebMvcConfigurer implements WebMvcConfigurer{
 
+    @Autowired
+    private StringToRoleConverter stringToRoleConverter;
+    
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -36,5 +40,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
         String [] locations = {"/static/"};
         registry.addResourceHandler(paths).addResourceLocations(locations);
     }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(stringToRoleConverter);
+    }
+    
+    
     
 }
